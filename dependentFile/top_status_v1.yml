@@ -1,0 +1,20 @@
+---
+- name: check top command status
+  hosts: ACeServer
+  vars:
+    ansible_user: root
+    ansible_password: shoreadmin1
+
+  tasks:
+  - name: check file
+    file:
+      path: /home/vinay/hosts
+      state: file
+  - name: run top command
+    raw: top -n 1 -b > /home/vinay/hosts1
+    args:
+      executable: /bin/bash  
+    register: remoteout
+  - debug:
+      var: remoteout.stdout_lines 
+
